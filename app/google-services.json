@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "862888814600",
+    "project_id": "animegarden-86018",
+    "storage_bucket": "animegarden-86018.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:862888814600:android:61c7a8f50efd20de4589bd",
+        "android_client_info": {
+          "package_name": "com.example.animegarden"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "862888814600-5jdbkvm2p42k17k0upseerbgbtq48bgm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBwtlSC5aou_n08JyjfQRMJ9z9xiI_qoO0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "862888814600-5jdbkvm2p42k17k0upseerbgbtq48bgm.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
