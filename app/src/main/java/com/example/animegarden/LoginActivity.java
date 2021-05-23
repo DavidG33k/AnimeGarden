@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
@@ -25,7 +26,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private Button login_button;
     private ProgressBar progressBar;
     private FirebaseAuth mAuth;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
