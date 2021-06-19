@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.StrictMode;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
@@ -18,6 +17,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -26,6 +26,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private Button login_button;
     private ProgressBar progressBar;
     private FirebaseAuth mAuth;
+    private FirebaseUser user = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +45,13 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         login_button.setOnClickListener(this);
 
         progressBar = (ProgressBar)findViewById(R.id.progressBar);
+
+        //LOGIN SESSION CHECK
+        user = FirebaseAuth.getInstance().getCurrentUser();
+        if(user != null) {
+            startActivity(new Intent(LoginActivity.this, HomePageActivity.class));
+            Toast.makeText(getApplicationContext(), "Hai eseguito l'accesso con " + user.getEmail(), Toast.LENGTH_LONG).show();
+        }
 
     }
 

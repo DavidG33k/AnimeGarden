@@ -11,7 +11,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AnimeGarden">
-        <activity android:name=".HomePageActivity"></activity>
+        <activity android:name=".HomePageActivity">
+            <intent-filter>
+                <category android:name="android.intent.category.ALTERNATIVE" />
+            </intent-filter>
+        </activity>
         <activity android:name=".RegisterActivity" />
         <activity android:name=".LoginActivity">
             <intent-filter>
@@ -23,3 +27,4 @@
     </application>
 
 </manifest>
+

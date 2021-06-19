@@ -87,7 +87,7 @@ public class AnimeAPI {
             JSONObject JSONresponse = new JSONObject(response.toString());
             JSONArray top_array = new JSONArray(JSONresponse.getJSONArray("top").toString());
 
-            for(int i = 0; i < top_array.length(); i++) {
+            for(int i = 0; i < top_array.length() && i < 10; i++) {
                 HashMap<String, String> anime = new HashMap<String, String>();
 
                 anime.put("id", top_array.getJSONObject(i).getString("mal_id"));
@@ -133,7 +133,7 @@ public class AnimeAPI {
             JSONObject JSONresponse = new JSONObject(response.toString());
             JSONArray top_array = new JSONArray(JSONresponse.getJSONArray("top").toString());
 
-            for(int i = 0; i < top_array.length(); i++) {
+            for(int i = 0; i < top_array.length() && i < 10; i++) {
                 HashMap<String, String> anime = new HashMap<String, String>();
 
                 anime.put("id", top_array.getJSONObject(i).getString("mal_id"));
@@ -157,12 +157,12 @@ public class AnimeAPI {
         return upComingAnime;
     }
 
-    public static ArrayList<HashMap<String, String>> getFavoriteAnime(){
+    public static ArrayList<HashMap<String, String>> getEpisodeAnime(int id){
 
-        ArrayList<HashMap<String, String>> favoriteAnime = new ArrayList<HashMap<String, String>>();
+        ArrayList<HashMap<String, String>> episodesAnime = new ArrayList<HashMap<String, String>>();
 
         try {
-            url = new URL("https://api.jikan.moe/v3/top/anime/1/favorite");
+            url = new URL("https://api.jikan.moe/v3/anime/"+id+"/episodes");
             connection = (HttpURLConnection) url.openConnection();
 
             BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
@@ -174,22 +174,18 @@ public class AnimeAPI {
             }
 
             JSONObject JSONresponse = new JSONObject(response.toString());
-            JSONArray top_array = new JSONArray(JSONresponse.getJSONArray("top").toString());
+            JSONArray episodes_array = new JSONArray(JSONresponse.getJSONArray("episodes").toString());
 
-            for(int i = 0; i < top_array.length(); i++) {
+            for(int i = 0; i < episodes_array.length(); i++) {
                 HashMap<String, String> anime = new HashMap<String, String>();
 
-                anime.put("id", top_array.getJSONObject(i).getString("mal_id"));
-                anime.put("rank", top_array.getJSONObject(i).getString("rank"));
-                anime.put("title", top_array.getJSONObject(i).getString("title"));
-                anime.put("url", top_array.getJSONObject(i).getString("url"));
-                anime.put("image_url", top_array.getJSONObject(i).getString("image_url"));
-                anime.put("episodes", top_array.getJSONObject(i).getString("episodes"));
-                anime.put("start_date", top_array.getJSONObject(i).getString("start_date"));
-                anime.put("end_date", top_array.getJSONObject(i).getString("end_date"));
-                anime.put("score", top_array.getJSONObject(i).getString("score"));
+                anime.put("episode id", episodes_array.getJSONObject(i).getString("episode_id"));
+                anime.put("title", episodes_array.getJSONObject(i).getString("title"));
+                anime.put("title romanji", episodes_array.getJSONObject(i).getString("title_romanji"));
+                anime.put("filler", episodes_array.getJSONObject(i).getString("filler"));
+                anime.put("recap", episodes_array.getJSONObject(i).getString("recap"));
 
-                favoriteAnime.add(anime);
+                episodesAnime.add(anime);
             }
 
         } catch (MalformedURLException e) {
@@ -200,6 +196,78 @@ public class AnimeAPI {
             e.printStackTrace();
         }
 
-        return favoriteAnime;
+        return episodesAnime;
+    }
+
+    public static HashMap<String, String> getElementsSchede(String id){
+        HashMap<String, String> list = new HashMap<>();
+        try {
+            url = new URL("https://api.jikan.moe/v3/anime/"+id);
+            connection = (HttpURLConnection) url.openConnection();
+
+            BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+
+            String inputLine;
+            StringBuffer response = new StringBuffer();
+            while((inputLine = in.readLine()) != null) {
+                response.append(inputLine);
+            }
+
+            JSONObject JSONresponse = new JSONObject(response.toString());
+
+            list.put("description", JSONresponse.getString("synopsis"));
+
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return list;
+
+    }
+
+    public static ArrayList<HashMap<String, String>> getAnimeByGenre(int genre){
+        ArrayList<HashMap<String, String>> animeResult = new ArrayList<HashMap<String, String>>();
+        try {
+            url = new URL("https://api.jikan.moe/v3/top/anime/"+genre+"/bypopularity");
+            connection = (HttpURLConnection) url.openConnection();
+
+            BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+
+            String inputLine;
+            StringBuffer response = new StringBuffer();
+            while((inputLine = in.readLine()) != null) {
+                response.append(inputLine);
+            }
+
+            JSONObject JSONresponse = new JSONObject(response.toString());
+            JSONArray results_array = new JSONArray(JSONresponse.getJSONArray("anime").toString());
+
+            for(int i = 0; i < results_array.length(); i++) {
+                HashMap<String, String> anime = new HashMap<String, String>();
+
+                anime.put("id", results_array.getJSONObject(i).getString("mal_id"));
+                anime.put("title", results_array.getJSONObject(i).getString("title"));
+                anime.put("image_url", results_array.getJSONObject(i).getString("image_url"));
+
+
+                animeResult.add(anime);
+            }
+
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+
+
+
+
+        return  animeResult;
     }
 }
