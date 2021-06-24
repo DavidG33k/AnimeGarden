@@ -7,8 +7,9 @@
     android:layout_marginLeft="4dp"
     android:layout_marginRight="4dp"
     android:layout_height="220dp"
-    android:background="@color/purple_200">
-
+    android:background="@color/purple_200"
+    android:clickable="true"
+    android:focusable="true">
 
     <ImageView
         android:scaleType="centerCrop"
@@ -18,8 +19,6 @@
         android:layout_marginLeft="3dp"
         android:layout_marginRight="3dp"
         android:layout_height="175dp"
-        android:clickable="true"
-        android:focusable="true"
         android:foreground="?attr/selectableItemBackgroundBorderless"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

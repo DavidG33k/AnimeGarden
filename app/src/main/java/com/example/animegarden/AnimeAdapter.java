@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -59,6 +60,13 @@ public class AnimeAdapter extends RecyclerView.Adapter<AnimeAdapter.MyViewHolder
         String id = animes.get(position).get("id");
         holder.textView.setText(s);
         holder.imageView.setImageDrawable(LoadImageFromWebOperations(animes.get(position).get("image_url")));
+
+        holder.imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
     }
 
     @Override
@@ -86,13 +94,6 @@ public class AnimeAdapter extends RecyclerView.Adapter<AnimeAdapter.MyViewHolder
 
             textView = itemView.findViewById(R.id.item_tx);
             imageView = itemView.findViewById(R.id.item_img);
-            imageView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-
-
-                }
-            });
         }
 
     }
